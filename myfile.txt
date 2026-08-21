@@ -1,2 +1,0 @@
-This is a local text file that will be sent to gitub
-This is a sample text file
