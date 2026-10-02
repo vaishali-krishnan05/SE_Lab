@@ -27,7 +27,7 @@ class Board:
                 if dr == 0 and dc == 0:
                     continue
                 nr, nc = r + dr, c + dc
-                if 0 <= nr <= self.rows and 0 <= nc <= self.cols:
+                if 0 <= nr < self.rows and 0 <= nc < self.cols:
                     yield nr, nc
 
     def adjacent_mines(self, r, c):
@@ -58,5 +58,12 @@ class Board:
             self.flags.add(pos)
         return True
 
+    #count only the safe cells, not out of bounds 
     def won(self):
-        return len(self.revealed) == self.rows * self.cols - self.mine_total
+        safe_cells = {
+            (r, c)
+            for r in range(self.rows)
+            for c in range(self.cols)
+            if (r, c) not in self.mines
+        }
+        return self.revealed == safe_cells
